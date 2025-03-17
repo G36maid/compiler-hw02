@@ -1,4 +1,4 @@
-# compiler-hw02
+# Compiler Homework 02
 
 ## Question 1
 
@@ -8,12 +8,13 @@ The given **Micro program**:
 ```plaintext
 BEGIN A := B - (C - D); END SCANEOF
 ```
-=>
+can be simplified to:
+
 ```plaintext
 A := B - (C - D)
 ```
 
-## operations:
+### **Operations Involved:**
 
 1. **Subtraction operation (`C - D`)**
 2. **Subtraction operation (`B - (C - D)`)**
@@ -22,14 +23,13 @@ A := B - (C - D)
 ---
 
 ### **Step 2: Determine Function Calls**
-If the parsing procedure follows **recursive descent parsing** or **operator precedence parsing**, the function calls would typically correspond to:
+To parse and evaluate the expression, the following functions are involved:
 
 - **Expression parsing**
 - **Assignment handling**
 - **Operator evaluation**
 
-Thus, the functions called during parsing might be:
-
+Specific functions:
 - `parse_program()`
 - `parse_statement()`
 - `parse_assignment()`
@@ -40,7 +40,7 @@ Thus, the functions called during parsing might be:
 ---
 
 ### **Step 3: Construct the Calling Graph**
-The **calling graph** (showing function calls from one another) might look like this:
+The **calling graph** (showing function calls from one another) is as follows:
 
 ```
 parse_program()
@@ -69,30 +69,30 @@ parse_program()
 ```
 
 ### **Explanation of the Graph**
-1. `parse_program()` starts the process.
-2. It calls `parse_statement()`, which identifies it as an assignment.
-3. `parse_assignment()` detects `A :=` and moves to `parse_expression()`.
-4. `parse_expression()` handles the subtraction operation (`B - (C - D)`).
-5. `parse_factor()` handles individual variables (`B`, `C`, `D`).
+1. **`parse_program()`** starts the parsing process.
+2. It calls **`parse_statement()`**, which identifies the statement as an assignment.
+3. **`parse_assignment()`** detects `A :=` and moves to **`parse_expression()`**.
+4. **`parse_expression()`** handles the subtraction operation (`B - (C - D)`).
+5. **`parse_factor()`** processes individual variables (`B`, `C`, `D`).
 
 ---
 
-Would you like this represented in a different format, such as a flowchart or tree?
-
-Let's analyze the **Micro program**:
-
-```
-BEGIN A := B - +C; END SCANEOF
-```
+## Question 2
 
 ### **Step 1: Parse the Expression**
-The assignment statement is:
+The given **Micro program**:
 
+```plaintext
+BEGIN A := B - +C; END SCANEOF
 ```
+can be simplified to:
+
+```plaintext
 A := B - +C
 ```
 
-Breaking it down:
+### **Operations Involved:**
+
 1. **Unary plus (`+C`)**
 2. **Subtraction (`B - +C`)**
 3. **Assignment (`A := ...`)**
@@ -100,7 +100,7 @@ Breaking it down:
 ---
 
 ### **Step 2: Identify Function Calls**
-If we're using **recursive descent parsing**, function calls typically align with:
+To parse and evaluate the expression, the following functions are involved:
 
 - **Program parsing** (`parse_program`)
 - **Statement parsing** (`parse_statement`)
@@ -112,7 +112,7 @@ If we're using **recursive descent parsing**, function calls typically align wit
 ---
 
 ### **Step 3: Construct the Calling Graph**
-Here’s the likely **calling graph**:
+The **calling graph** (showing function calls from one another) is as follows:
 
 ```
 parse_program()
@@ -133,16 +133,15 @@ parse_program()
                     │
                     ├── parse_operator('+')
                     │
-                    ├── parse_factor()  [C]
+                    └── parse_factor()  [C]
 ```
 
----
-
 ### **Explanation**
-1. **`parse_program()`** starts the parsing.
+1. **`parse_program()`** starts the parsing process.
 2. It calls **`parse_statement()`**, which processes the assignment.
 3. **`parse_assignment()`** detects `A :=` and calls **`parse_expression()`**.
 4. **`parse_expression()`** recognizes `B - +C`.
    - Calls **`parse_term()`** for `B`.
    - Calls **`parse_operator('-')`**, which processes `+C`.
    - Calls **`parse_operator('+')`**, which applies to `C`.
+`
