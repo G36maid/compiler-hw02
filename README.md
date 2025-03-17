@@ -1,5 +1,8 @@
 # Compiler Homework 02
 
+- 41173058H
+- 鍾詠傑
+
 ## Question 1
 
 ### **Step 1: Parse the Expression**
